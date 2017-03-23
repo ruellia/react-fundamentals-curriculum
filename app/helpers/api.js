@@ -12,7 +12,6 @@ function getFiveDayForecast(city) {
 
 var helpers = {
     getCityInfo: function (city) {
-        console.log('city is' + city)
         return axios.all([getCurrentWeather(city), getFiveDayForecast(city)])
             .then(function (weather) {
                 return [
