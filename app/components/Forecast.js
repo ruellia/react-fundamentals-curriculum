@@ -42,7 +42,7 @@ function DayItem(props) {
     var date = getDate(props.day.dt);
     var icon = props.day.weather[0].icon;
     return (
-        <div style={styles.dayContainer}>
+        <div style={styles.dayContainer} onClick={props.handleClick}>
             <img
                 style={styles.weather}
                 src={'./app/images/weather-icons/' + icon + '.svg'}
@@ -61,7 +61,7 @@ function ForecastUI(props) {
                     .forecast
                     .list
                     .map(function (listItem) {
-                        return <DayItem key={listItem.dt} day={listItem}/>
+                        return <DayItem key={listItem.dt} day={listItem} handleClick={props.handleClick.bind(null, listItem)}/>
                     })}
             </div>
         </div>
@@ -72,13 +72,14 @@ var Forecast = React.createClass({
     propTypes: {
         city: PropTypes.string.isRequired,
         forecastData: PropTypes.object.isRequired,
-        isLoading: PropTypes.bool.isRequired
+        isLoading: PropTypes.bool.isRequired,
+        handleClick: PropTypes.func.isRequired
     },
     render: function () {
         if (this.props.isLoading === true) {
             return <Loading text="Loading" speed={300}/>
         }
-        return (<ForecastUI city={this.props.city} forecast={this.props.forecastData}/>)
+        return (<ForecastUI city={this.props.city} forecast={this.props.forecastData} handleClick={this.props.handleClick}/>)
     }
 });
 
