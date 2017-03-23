@@ -1,6 +1,7 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 var GetCity = require('../components/GetCity');
+var api = require('../helpers/api');
 
 var GetCityContainer = React.createClass({
     propTypes: {
@@ -14,6 +15,10 @@ var GetCityContainer = React.createClass({
     },
     handleSubmitCity: function () {
         console.log(this.state.city)
+        api.getCityInfo(this.state.city.replace(/\s/g,'')).then(function (data) {
+                console.log(data[0]);
+                console.log(data[1]);
+            }.bind(this))
     },
     handleUpdateCity: function (e) {
         this.setState({city: e.target.value})
